@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=yes,
+    initial-scale=1.0"/>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Homemade+Apple" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
+
+  <title>Office Championship</title>
+
+  <style>@import 'page.css';</style>
+
+
+  <!-- Stylesheets
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css"> 
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <script src="libs/evothings/evothings.js"></script>
+  <script src="libs/evothings/ui/ui.js"></script>
+  <script src="lib/jquery.js"></script>
+  <script src="cordova.js"></script>
+  <script src="app.js"></script>
+  <script>
+  // Redirect console if running from Evothings Workbench.
+  if (window.hyper) { console.log = hyper.log }
+  app.startScanForBeacons();
+  </script>
+
+  <!-- Add additional services you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase-database.js"></script> 
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyA0LAGcDRQAnvyObmpUT9wam2ZVMg83HeA",
+      authDomain: "theofficetournament-99f1b.firebaseapp.com",
+      databaseURL: "https://theofficetournament-99f1b.firebaseio.com",
+      projectId: "theofficetournament-99f1b",
+      storageBucket: "theofficetournament-99f1b.appspot.com",
+      messagingSenderId: "50053005989"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container" id="overlay">
+    <div class="row w-100 m-0" id="overlay-content">
+        <div class="col-12 text-center">
+          <h1 class="">Office Championship</h1>
+          <p class="">Beat your collegues!</p>
+          <div class="row justify-content-center">
+            <div class="loader"></div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+    <!-- Login & Register Page -->
+  <div class="container h-100" id="register">
+    <div class="row h-100 ml-2 mr-2 align-items-center">
+        <div class="col-12 text-center">
+              <h1 class="">Office Championship</h1>
+              <p class="">Beat your collegues!</p>
+        </div>
+        <div class="col-12 justify-content-center mt-5">
+          <div class="row mx-auto w-75 justify-content-center"> 
+            <input class="m-2 pt-2 pb-2 rounded" type="text" id="username" name="username" placeholder="Username"></input>
+          </div>
+          <div class="row mx-auto w-75 justify-content-center"> 
+            <input class="m-2 pt-2 pb-2 rounded" type="text" id="email" name="email" placeholder="Email"></input>
+          </div>
+          <div class="row mx-auto w-75 justify-content-center"> 
+            <input class="m-2 pt-2 pb-2 rounded" type="password" id="password" name="password" placeholder="Password"></input>
+          </div>
+          <div class="row mx-auto mt-2 w-75 justify-content-center align-items-end"> 
+            <button type="btn" class="mr-auto btn btn-dark ml-0 pt-2 pb-2" name="signin" onclick="handleSignIn()">Sign in</button>
+            <p class="mb-0 mr-1">or..</p>
+            <button type="btn" class="btn btn-dark mr-0 pt-2 pb-2" name="signup" onclick="handleSignUp()">Sign up</button>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+    <!-- Main Page -->
+  <div class="my-page container h-100" id="main">
+    <div class="row h-100 ml-2 mr-2">
+
+      <div class="row w-100 m-0">
+          <div class="col-6 ml-0">
+            <button type="btn" class="btn btn-dark mt-2" name="leaderboard" onclick="toggleLeaderboard()"><i class="fas fa-trophy"></i></button>
+          </div>
+          <div class="col-6 mr-0 text-right">
+            <button type="btn" class="btn btn-dark mt-2" name="" onclick="toggleAbout()">About</i></button>
+          </div>
+      </div>
+
+      <div class="row w-100 m-0">
+        <div class="col-12 text-center">
+              <h1 class="">Office Championship</h1>
+              <p class="">Beat your collegues!</p>
+        </div>
+        <div class="col-12 justify-content-center mt-5">
+          <div class="row mx-auto w-75 text-start">
+            <p>Did you just complete any of the following tasks? Then collect your point!</p>
+          </div>
+          <div class="row mx-auto w-75 text-center"> 
+            <button type="btn" class="btn btn-block btn-dark m-2 pt-2 pb-2" onclick="toggleDishwasher()">Emptied the dishwasher</button>
+          </div>
+          <div class="row mx-auto w-75 text-center">
+            <button type="btn" class="btn btn-block btn-dark m-2 pt-2 pb-2"" onclick="toggleCoffee()">Made coffee</button>
+          </div>
+          <div class="row mx-auto w-75 text-center">
+            <button type="btn" class="btn btn-block btn-dark m-2 pt-2 pb-2"" onclick="toggleRecycle()">Took care of the trash</button>
+          </div>
+        </div>
+      </div>
+      <div class="row w-100 m-0 align-items-end justify-content-end">
+        <div class="col-6 mb-2 text-right">
+          <button type="btn" class="btn btn-dark mb-0" name="signin" onclick="handleSignOut()">Sign out</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    <!-- Dishwasher Page -->
+  <div class="my-page container h-100" id="dishwasher">
+    <div class="row h-100 ml-2 mr-2">
+      <div class="col-12">
+        <i type="btn" class="zmdi zmdi-long-arrow-left zmdi-hc-3x" onclick="dishBackToMain();reLoadPage()"></i>
+      </div>
+      <div class="col-12 mt-0 bg-white rounded-top border-right border-left border-top border-dark">
+        <h1 class="mt-5">Dishwasher</h1>
+        <p>If you've just emptied the dishwasher you have earned a point, 
+        collect it to get closer to the Championship Cup!</p>
+      </div>
+      <div class="col-12 bg-white order-right border-left border-right border-dark">
+        <img class="img-fluid rounded" id="dishwasher-img" src="img/dishwasher.png"/>
+      </div>
+      <div class="col-12 mb-5 bg-white rounded-bottom text-center border-right border-left border-bottom border-dark">
+        <button type="btn" class="btn-dark text-white pl-4 pr-4 p-2 rounded" onclick="collectClick()">collect <i class="fas fa-coins"></i></button>
+      </div>
+    </div>
+  </div>
+
+    <!-- Coffee Page -->
+  <div class="my-page container h-100" id="coffee">
+    <div class="row h-100 ml-2 mr-2">
+      <div class="col-12">
+        <i type="btn" class="zmdi zmdi-long-arrow-left zmdi-hc-3x" onclick="coffeeBackToMain();reLoadPage()"></i>
+      </div>
+      <div class="col-12 mt-0 bg-white rounded-top border-right border-left border-top border-dark">
+        <h1 class="mt-5">Coffee Maker</h1>
+        <p>If you've just put on a new pot of coffee you have earned a point, 
+        collect it to get closer to the Championship Cup!</p>
+      </div>
+      <div class="col-12 bg-white border-right border-left border-dark">
+        <img class="img-fluid rounded" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/6f060d65482241.5af5931baf79d.jpg"/>
+      </div>
+      <div class="col-12 mb-5 bg-white rounded-bottom text-center border-right border-left border-bottom border-dark">
+        <button type="btn" class="btn-dark text-white pl-4 pr-4 p-2 rounded" onclick="collectClick()">collect <i class="fas fa-coins"></i></button>
+      </div>
+    </div>
+  </div>
+
+    <!-- Recycle Page -->
+  <div class="my-page container h-100" id="recycle">
+    <div class="row h-100 ml-2 mr-2">
+      <div class="col-12">
+        <i type="btn" class="zmdi zmdi-long-arrow-left zmdi-hc-3x" onclick="recycleBackToMain();reLoadPage()"></i>
+      </div>
+      <div class="col-12 mt-0 bg-white rounded-top">
+        <h1 class="mt-5">Recycler</h1>
+        <p>If you've just recycled stuff you have earned a point, 
+        collect it to get closer to the Championship Cup!</p>
+      </div>
+      <div class="col-12 bg-white order-right">
+        <img class="img-fluid rounded" src="https://static.designboom.com/wp-content/uploads/2016/07/ezgif-1513107093.gif"/>
+      </div>
+      <div class="col-12 mb-5 bg-white rounded-bottom text-center">
+        <button type="btn" class="btn-dark text-white pl-4 pr-4 p-2 rounded" onclick="collectClick()">collect <i class="fas fa-coins"></i></button>
+      </div>
+    </div>
+  </div>
+
+   <!-- Leaderboard -->
+  <div class="container h-100" id="leaderboard">
+    <div class="row">
+        <div class="col-12 ml-4">
+          <i type="btn" class="zmdi zmdi-long-arrow-left zmdi-hc-3x" onclick="leaderboardBackToMain()"></i>
+        </div>
+    </div>
+      <div class="row mt-4 ml-2 mr-2" id="leadrow">
+        <div class="col-12 p-0 mt-0 bg-white rounded-top justify-content-center text-center">
+          <h1 class="mt-5">Leaderboard</h1>
+          <img class="img img-fluid rounded" src="img/trophy-award-icon.jpg"/>
+        </div>
+        <div class="col-12 bg-white" id="scroll"><span id="board"></span></div>
+        <div class="col-12 mb-5 bg-white rounded-bottom"></div>    
+      </div>
+  </div>
+
+    <!-- About Page -->
+  <div class="my-page container" id="about">
+    <div class="row h-100 m-2">
+      <div class="col-12 mb-3">
+        <i type="btn" class="zmdi zmdi-long-arrow-left zmdi-hc-3x" onclick="aboutBackToMain()"></i>
+      </div>
+      <div class="col-12 mb-3">
+        <h1>HJ Productions</h1>
+      </div>
+      <div class="d-flex flex-row w-100">
+        <div class="flex-fill">
+          <div class="row">
+            <div class="col-12">
+              <img id="profilepic" class="img img-fluid rounded" src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p320x320/22780230_10156680874377786_2704497407843850779_n.jpg?_nc_cat=0&oh=0678d552e09b2e867344a6e5df2d44ba&oe=5B9B5DB5"/>
+            </div>
+            <div class="col-12">
+              <h3>Johannes Karlsson</h3>
+              <p>Fullstack</br>jkar5@kth.se</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-fill">
+          <div class="row">
+            <div class="col-12">
+              <img id="profilepic" class="img img-fluid rounded" src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/c1.0.320.320/p320x320/27752205_10160025852660092_5131479503979390849_n.jpg?_nc_cat=0&oh=0cbd57aaee68f5b63a1f7ed77fdcf7ed&oe=5B946A9F"/>
+            </div>
+            <div class="col-12"> 
+              <h3>Hedvig Fahlstedt</h3>
+              <p>Frontend & Designer</br>hedvigf@kth.se</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+<script>
+$.fn.center = function () {
+  this.css("position","absolute");
+  this.css("top", Math.max(0, (
+    ($(window).height() - $(this).outerHeight()) / 2) + 
+     $(window).scrollTop()) + "px"
+  );
+  this.css("left", Math.max(0, (
+    ($(window).width() - $(this).outerWidth()) / 2) + 
+     $(window).scrollLeft()) + "px"
+  );
+  return this;
+}
+
+$("#overlay").show();
+$("#overlay-content").show().center();
+
+setTimeout(function(){    
+  $("#overlay").fadeOut();
+}, 4000);
+
+function toggleLeaderboard() {
+  document.getElementById('main').style.display = "none";
+  document.getElementById('leaderboard').style.display = "block";
+}
+
+function leaderboardBackToMain() {
+  document.getElementById('main').style.display = "block";
+  document.getElementById('leaderboard').style.display = "none";
+}
+
+function dishBackToMain() {
+  document.getElementById('main').style.display = "block";
+  document.getElementById('dishwasher').style.display = "none";
+}
+
+function toggleDishwasher() {
+  document.getElementById('main').style.display = "none";
+  document.getElementById('dishwasher').style.display = "block";
+}
+
+function coffeeBackToMain() {
+  document.getElementById('main').style.display = "block";
+  document.getElementById('coffee').style.display = "none";
+}
+
+function toggleCoffee() {
+  document.getElementById('main').style.display = "none";
+  document.getElementById('coffee').style.display = "block";
+}
+
+function recycleBackToMain() {
+  document.getElementById('main').style.display = "block";
+  document.getElementById('recycle').style.display = "none";
+}
+
+function toggleRecycle() {
+  document.getElementById('main').style.display = "none";
+  document.getElementById('recycle').style.display = "block";
+}
+
+function aboutBackToMain() {
+  document.getElementById('main').style.display = "block";
+  document.getElementById('about').style.display = "none";
+}
+
+function toggleAbout() {
+  document.getElementById('main').style.display = "none";
+  document.getElementById('about').style.display = "block";
+}
+
+
+
+// FIREBASE //
+var database = firebase.database();
+
+function getLeaderboard() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    var preBoard = document.getElementById("board");
+    preBoard.innerHTML = "";
+    var refObject = "";
+    var refList = [];
+    var refUser = database.ref("users/");
+    refUser.orderByChild("order").limitToFirst(10).on("child_added", snapshot => {
+      refObject = snapshot.val();
+      refList.splice(0,4)
+      for (var key in refObject) {
+        refList.push(refObject[key])
+      }
+      var row = document.createElement("div");
+      row.className = "row w-100 ml-3 justify-content-center align-items-center";
+      var col8 = document.createElement("div");
+      col8.className = "col-8"
+      col8.innerHTML = refList[3];
+      row.appendChild(col8);
+      var col4 = document.createElement("div");
+      col4.className = "col-4 text-center"
+      col4.innerHTML = refList[0];
+      row.appendChild(col4)
+      preBoard.appendChild(row);
+      var line = document.createElement("hr");
+      preBoard.appendChild(line);
+    })
+  })
+}
+
+/**
+ * Handles the sign in button press.
+ */
+function collectClick() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    var currentUser = firebase.auth().currentUser;
+
+    var getCount = database.ref().child("users/" + currentUser.uid + "/click");
+    getCount.transaction(function(currentClick){
+      currentClick += 1
+      return Number(currentClick)
+    })
+
+    var getCountOrder = database.ref().child("users/" + currentUser.uid + "/order");
+    getCountOrder.transaction(function(currentOrder){
+      currentOrder = currentOrder - 1
+      return Number(currentOrder)
+    })
+  })
+  getLeaderboard()
+}
+
+/**
+ * Handles the sign in button press.
+ */
+function handleSignIn(){
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  if (email.length < 4) {
+    alert('Please enter an email address.');
+    return;
+  }
+  if (password.length < 4) {
+    alert('Please enter a password.');
+    return;
+  }
+
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+    window.alert("Error : " + errorMessage);
+
+    // ...
+  });
+}
+
+/**
+ * Handles the sign out button press.
+ */
+function handleSignOut(){
+  firebase.auth().signOut();
+}
+
+/**
+ * Handles the sign up button press.
+ */
+function handleSignUp() {
+  var username = document.getElementById('username').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  if (email.length < 4) {
+    alert('Please enter an email address.');
+    return;
+  }
+  if (password.length < 4) {
+    alert('Please enter a password.');
+    return;
+  }
+
+  // Sign in with email and pass.
+  // [START createwithemail]
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+  firebase.auth().onAuthStateChanged(function(user) {
+    var currentUser = firebase.auth().currentUser
+    database.ref("users/" + currentUser.uid).set({"click":0, "email":email, "username":username, "order":1000000});
+  })
+}
+
+/**
+ * initApp 
+ */
+firebase.auth().onAuthStateChanged(function(user) {
+
+  if (user) {
+    getLeaderboard()
+    // User is signed in.
+    var email = user.email;
+    var uid = user.uid;
+    document.getElementById('register').style.display = "none";
+    document.getElementById('main').style.display = "block";
+    document.getElementById('leaderboard').style.display = "none";
+    document.getElementById('about').style.display = "none";
+    document.getElementById('dishwasher').style.display = "none"; 
+    document.getElementById('coffee').style.display = "none";
+    document.getElementById('recycle').style.display = "none";
+
+  } 
+  else {
+    // User is signed out.
+    document.getElementById('register').style.display = "block";
+    document.getElementById('main').style.display = "none";
+    document.getElementById('leaderboard').style.display = "none";
+
+  }
+});
+
+function reLoadPage() {
+  //location.reload()
+  app.startScanForBeacons();
+}
+</script>
+
+</body>
+</html>
